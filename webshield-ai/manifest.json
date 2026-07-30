@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "WebShield AI",
+  "version": "1.0.0",
+  "description": "Lightweight browser security assistant that monitors webpages for suspicious behaviors and assigns a Risk Score (DOM XSS, Clickjacking, Malicious JS, Cookie Theft, Crypto Mining, Drive-by Downloads).",
+  "author": "WebShield AI",
+  "permissions": [
+    "activeTab",
+    "scripting",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_page": "options/options.html",
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "WebShield AI",
+    "default_icon": {
+      "16": "assets/icons/icon16.png",
+      "48": "assets/icons/icon48.png",
+      "128": "assets/icons/icon128.png"
+    }
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["utils/detectors/domScanner.js",
+             "utils/detectors/clickjacking.js",
+             "utils/detectors/scriptAnalyzer.js",
+             "utils/detectors/cookieMonitor.js",
+             "utils/detectors/cryptoMiner.js",
+             "utils/detectors/downloadMonitor.js",
+             "utils/detectors/permissionSnooper.js",
+             "utils/riskEngine.js",
+             "content.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    }
+  ],
+  "icons": {
+    "16": "assets/icons/icon16.png",
+    "48": "assets/icons/icon48.png",
+    "128": "assets/icons/icon128.png"
+  }
+}
