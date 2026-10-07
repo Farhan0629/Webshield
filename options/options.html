@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>WebShield AI — Settings</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #0b1220;
+      --panel: #121b2e;
+      --border: #223047;
+      --text: #e6edf7;
+      --muted: #93a3ba;
+      --accent: #22d3ee;
+      --ok: #22c55e;
+      --err: #ef4444;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 32px;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 560px;
+    }
+    h1 { font-size: 20px; margin: 0 0 4px; }
+    .sub { color: var(--muted); margin: 0 0 24px; font-size: 13px; }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+    label { display: block; font-size: 13px; color: var(--muted); margin-bottom: 6px; }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #0d1526;
+      color: var(--text);
+      font-size: 14px;
+      font-family: monospace;
+    }
+    .row { display: flex; gap: 10px; margin-top: 12px; align-items: center; }
+    button {
+      padding: 9px 16px;
+      border-radius: 8px;
+      border: none;
+      background: var(--accent);
+      color: #06222b;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+    }
+    button.ghost {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+    .status { font-size: 13px; margin-left: 4px; }
+    .status.ok { color: var(--ok); }
+    .status.err { color: var(--err); }
+    ol { color: var(--muted); font-size: 13px; padding-left: 20px; line-height: 1.7; }
+    a { color: var(--accent); }
+    .note {
+      font-size: 12px;
+      color: var(--muted);
+      background: #0d1526;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 14px;
+    }
+  </style>
+</head>
+<body>
+  <h1>WebShield AI — Settings</h1>
+  <p class="sub">Add a free Google Safe Browsing API key for ground-truth threat checks alongside local heuristics.</p>
+
+  <div class="panel">
+    <label for="apiKey">Google Safe Browsing API key</label>
+    <input type="password" id="apiKey" placeholder="Paste your API key here" autocomplete="off" />
+    <div class="row">
+      <button id="saveBtn">Save</button>
+      <button class="ghost" id="clearBtn">Clear</button>
+      <span class="status" id="status"></span>
+    </div>
+    <div class="note">
+      The key is stored locally in this browser (<code>chrome.storage.local</code>) and is only ever
+      sent directly from your browser to <code>safebrowsing.googleapis.com</code>. Without a key, WebShield AI
+      still runs on local heuristics alone — Safe Browsing checks are simply skipped.
+    </div>
+  </div>
+
+  <div class="panel">
+    <strong style="font-size:13px;">How to get a free key (~2 minutes, no billing required)</strong>
+    <ol>
+      <li>Go to the <a href="https://console.cloud.google.com/" target="_blank" rel="noopener">Google Cloud Console</a> and create (or pick) a project.</li>
+      <li>Open <em>APIs &amp; Services → Library</em>, search for <strong>"Safe Browsing API"</strong>, and click Enable.</li>
+      <li>Open <em>APIs &amp; Services → Credentials → Create Credentials → API key</em>.</li>
+      <li>Copy the generated key and paste it above.</li>
+    </ol>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
